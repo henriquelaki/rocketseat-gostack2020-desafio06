@@ -13,11 +13,11 @@ let connection: Connection;
 describe('Transaction', () => {
   beforeAll(async () => {
     connection = await createConnection('test-connection');
-    
+
     await connection.query('DROP TABLE IF EXISTS transactions');
     await connection.query('DROP TABLE IF EXISTS categories');
     await connection.query('DROP TABLE IF EXISTS migrations');
-    
+
     await connection.runMigrations();
   });
 
@@ -201,7 +201,6 @@ describe('Transaction', () => {
     const categoriesRepository = getRepository(Category);
 
     const importCSV = path.resolve(__dirname, 'import_template.csv');
-
     await request(app).post('/transactions/import').attach('file', importCSV);
 
     const transactions = await transactionsRepository.find();
